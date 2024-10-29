@@ -273,6 +273,13 @@ df['postal_code'] = df['postal_code'].str.replace(r'[^\d\.]', '', regex=True)
 # rename columns to avoid duplicated column names in other tables and provide clarity
 df = df.rename(columns={'name': 'library_name'})
 
+# Converts the first character of each word to upper case
+columns_to_title = ['library_name']
+df[columns_to_title] = df[columns_to_title].apply(lambda col: col.str.title())
+
+# replace multiple spaces with a single space
+columns_to_shorten = ['library_name']
+df[columns_to_shorten] = df[columns_to_shorten].apply(lambda col: col.str.replace(r'\s+', ' ', regex=True))
 
 # # Geocoder > to populate city based on address
 # does not work for me because of certificates installed for Serbian ID :/
